@@ -1,6 +1,12 @@
-var net = require('net');
-
-var connected = [];
+var net = require('net'),
+    connected = [],
+    args = process.argv.slice(2),
+    host = args[0],
+    port = args[1];
+if (!host)
+    host = "127.0.0.1";
+if (!port)
+    port = 3000;
 
 function broadCast(data, sock) {
     connected.forEach(function (socket) {
@@ -41,5 +47,5 @@ var server = net.createServer(function (socket) {
 
 });
 
-server.listen(3000, '127.0.0.1');
+server.listen(port, host);
 console.log("waiting for client...");
